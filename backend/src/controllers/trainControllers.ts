@@ -13,10 +13,10 @@ export const getSeats = async (req: Request, res: Response): Promise<void> => {
 
 export const bookSeats = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId = req.user?.id;
-        if(!userId) {
-            throw new Error('Unauthorized');
-        }
+        // const userId = req.user?.id as any;
+        // if(!userId) {
+        //     throw new Error('Unauthorized');
+        // }
 
         const result = await trainService.bookSeats(req.body);
         res.status(201).json(result);

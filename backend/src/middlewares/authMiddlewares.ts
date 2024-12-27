@@ -10,7 +10,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction): v
 
     try {
         const decoded = verifyToken(token as string, process.env.JWT_SECRET as string) as JWTPayload
-        req.user = decoded;
+        // req.user = decoded;
         next()
     }
     catch(error) {
