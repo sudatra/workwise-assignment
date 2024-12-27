@@ -22,5 +22,5 @@ export const login = async ({ username, password }: Login): Promise<any> => {
     }
 
     const token  = generateToken({ id: user.id }, process.env.JWT_SECRET as string);
-    return { token }
+    return { token: token, userId: user.id }
 }

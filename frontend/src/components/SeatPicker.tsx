@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const SeatPicker = ({ seats }: { seats: any[] }) => {
   return (
@@ -9,7 +9,7 @@ const SeatPicker = ({ seats }: { seats: any[] }) => {
           className={`p-2 ${seat.isReserved ? 'bg-gray-500' : 'bg-green-500'}`}
           disabled={seat.isReserved}
         >
-          {seat.seatNumber}
+          {seat.id}
         </button>
       ))}
     </div>

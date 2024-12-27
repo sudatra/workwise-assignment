@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const router = useRouter()
   
     const handleSignup = async () => {
       try {
@@ -12,7 +14,11 @@ const Signup = () => {
           username,
           password,
         });
+
+        localStorage.setItem('userId', response.data.userId);
         console.log('Signed up:', response.data);
+
+        router.replace('/dashboard');
       } catch (error) {
         setError('Error during signup');
       }

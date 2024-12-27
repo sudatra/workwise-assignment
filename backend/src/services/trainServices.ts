@@ -1,7 +1,7 @@
 import * as trainRepository from '../repositories/trainRepository'
 import { BookingRequest, BookingResponse } from '../interfaces/trainInterfaces'
 
-export const getSeats = async () => {
+export const getSeats = () => {
     return trainRepository.getAllSeats();
 }
 

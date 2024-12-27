@@ -3,12 +3,13 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const getAllSeats = () => {
-    return prisma.trainSeat.findMany();
+    return prisma.trainSeat.findMany({ orderBy: { id: 'asc' } });
 }
 
 export const getAvailableSeats = () => {
     return prisma.trainSeat.findMany({
-        where: { isReserved: false }
+        where: { isReserved: false },
+        orderBy: { id: 'asc' }
     })
 }
 
@@ -42,7 +43,8 @@ export const createBooking = async (userId: number, seats: any[]) => {
     return prisma.booking.create({
         data: {
             userId,
-            seatIds: JSON.stringify(seatIds)
+            seatIds: JSON.stringify(seatIds),
+            isBookingActive: true
         }
     });
 }
@@ -51,4 +53,6 @@ export const resetAllSeats = async () => {
     await prisma.trainSeat.updateMany({
         data: { isReserved: false, reservedBy: null }
     });
+
+    await prisma.booking.updateMany({ data: { isBookingActive: false } })
 }

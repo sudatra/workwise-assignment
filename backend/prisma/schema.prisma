@@ -39,4 +39,5 @@ model Booking {
   seatIds    String   
   bookingTime DateTime  @default(now())
   User       User       @relation(fields: [userId], references: [id])
+  isBookingActive   Boolean?  @default(false)
 }

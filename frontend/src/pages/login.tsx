@@ -1,10 +1,13 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const router = useRouter();
   
     const handleLogin = async () => {
       try {
@@ -14,7 +17,10 @@ const Login = () => {
         });
 
         localStorage.setItem('jwtToken', response.data.token);
+        localStorage.setItem('userId', response.data.userId);
         console.log('Logged in:', response.data);
+
+        router.replace('/dashboard')
       } catch (error) {
         setError('Invalid credentials');
       }
