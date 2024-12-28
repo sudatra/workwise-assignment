@@ -4,13 +4,14 @@ const SeatPicker = ({ seats, highlightedSeats }: { seats: any[]; highlightedSeat
   return (
     <div className="grid grid-cols-7 gap-4">
       {seats.map((seat) => (
-        <button
+        <div
           key={seat.id}
-          className={`p-2 ${seat.isReserved ? 'bg-gray-500' : highlightedSeats.includes(seat.id) ? 'bg-yellow-500' : 'bg-green-500'}`}
-          disabled={seat.isReserved}
+          className={`p-2 text-center font-semibold rounded-md w-30
+            ${seat.isReserved ? 'bg-gray-500 pointer-events-none' : highlightedSeats.includes(seat.id) ? 'bg-yellow-500' : 'bg-green-500'}`
+        }
         >
           {seat.id}
-        </button>
+        </div>
       ))}
     </div>
   );

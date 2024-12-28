@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SeatPicker from '../components/SeatPicker';
+import { useRouter } from 'next/router';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
   const [seats, setSeats] = useState<any[]>([]);
@@ -11,6 +14,9 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [token, setToken] = useState<string | null>(null);
   const [highlightedSeats, setHighlightedSeats] = useState<number[]>([]);
+  const [showPreview, setShowPreview] = useState<boolean>(false);
+  const [fetchingSeats, setFetchingSeats] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -21,19 +27,19 @@ const Dashboard = () => {
     const storedToken = localStorage.getItem('jwtToken');
     setToken(storedToken);
   }, [])
+  
+  const fetchSeats = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/trains/seats');
+      setSeats(response.data);
+    } catch (error) {
+      console.error('Error fetching seats:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchSeats = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/trains/seats');
-        setSeats(response.data);
-      } catch (error) {
-        console.error('Error fetching seats:', error);
-      }
-    };
-
     fetchSeats();
-  }, []);
+  }, [showPreview, fetchingSeats]);
 
   const findBestSeats = (availableSeats: any[], numberOfSeats: number) => {
     const rows: any[] = availableSeats.reduce((acc: any, seat: any) => {
@@ -58,6 +64,11 @@ const Dashboard = () => {
     const availableSeats = seats.filter((seat) => !seat.isReserved);
     if(seatCount < 1 || seatCount > 7) {
       setError('You can only book between 1 and 7 seats.');
+      toast.error("You can only book between 1 and 7 seats.", {
+        position: "top-center",
+        hideProgressBar: false
+      });
+
       return;
     }
     if (availableSeats.length < seatCount) {
@@ -66,6 +77,12 @@ const Dashboard = () => {
     }
     const bestSeats = findBestSeats(availableSeats, seatCount);
     setHighlightedSeats(bestSeats);
+    setShowPreview(true);
+
+    toast.success("Successfully selected seats", {
+        position: "top-center",
+        hideProgressBar: false
+    });
     setError('');
   };
 
@@ -76,18 +93,40 @@ const Dashboard = () => {
             numberOfSeats: seatCount
         });
 
+        setFetchingSeats(true);
+        toast.success("Successfully selected seats", {
+            position: "top-center",
+            hideProgressBar: false
+        });
         console.log('Booking Successfully created:', response.data);
     }
     catch(error) {
         setError('Error during seat booking');
+        toast.error("Error Booking seats", {
+            position: "top-center",
+            hideProgressBar: false
+        });
+    }
+    finally {
+        setFetchingSeats(false)
     }
   }
 
   return (
     token ? (
         <>
+            <ToastContainer position="top-right" autoClose={3000} />
             <div className="p-4">
-                <h2 className="text-2xl font-bold mb-4">Seat Booking</h2>
+                <div className='flex flex-1 justify-between'>
+                    <h2 className="text-2xl font-bold mb-6">Seat Booking</h2>
+
+                    <button 
+                        onClick={() => { localStorage.removeItem('jwtToken'); localStorage.removeItem('userId'); router.replace('/login') }} 
+                        className='rounded-md bg-blue-950 text-white p-2 h-[40px] text-md font-semibold'
+                    >
+                        Logout
+                    </button>
+                </div>
                 <SeatPicker seats={seats} highlightedSeats={highlightedSeats} />
             </div>
 
@@ -95,20 +134,19 @@ const Dashboard = () => {
                 <div className='flex flex-col'>
                     <input 
                         type='text'
-                        className='p-2 mb-2 border'
+                        className='p-2 mb-2 border w-60 border-blue-950'
                         placeholder='Enter no of seats to book'
                         value={seatCount}
                         onChange={(e) => setSeatCount(Number(e.target.value))}
                     />
-                    {error && <p className="text-red-500">{error}</p>}
 
-                    <div className='flex flex-1 justify-end gap-2'>
-                        <button onClick={handlePreviewSeats} className='rounded-md bg-blue-500 text-white px-2 h-full'>
+                    <div className='flex flex-1 justify-center gap-3'>
+                        <button onClick={handlePreviewSeats} className='rounded-md bg-blue-950 text-white p-2 h-[50px] text-md font-semibold'>
                             Preview Seats
                         </button>
 
-                        <button onClick={handleSeatBooking} className='bg-blue-500 rounded-md text-white px-2 h-full'>
-                            Book
+                        <button onClick={handleSeatBooking} className='bg-blue-950 rounded-md text-white p-2 h-[50px] text-md font-semibold'>
+                            Book Seats
                         </button>
                     </div>
 
