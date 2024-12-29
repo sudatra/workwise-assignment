@@ -82,8 +82,8 @@ const Signup = () => {
             </div>
         </>
       ) : (
-        <div>
-            <h1>Already logged in!!!</h1>
+        <div className='flex flex-1 h-screen justify-center items-center'>
+            <p className='font-bold text-lg'>Already logged in!!!</p>
         </div>
       )
     );

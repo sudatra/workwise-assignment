@@ -112,6 +112,25 @@ const Dashboard = () => {
     }
   }
 
+  const handleBookingReset = async () => {
+    try {
+        const response = await axios.post('http://localhost:3001/trains/reset');
+
+        toast.success("Successfully reset booking", {
+            position: "top-center",
+            hideProgressBar: false
+        });
+        console.log('Bookings Successfully reset:', response.data)
+    }
+    catch(error) {
+        setError('Error resetting seats');
+        toast.error("Error Resetting seats", {
+            position: "top-center",
+            hideProgressBar: false
+        });
+    }
+  }
+
   return (
     token ? (
         <>
@@ -120,12 +139,21 @@ const Dashboard = () => {
                 <div className='flex flex-1 justify-between'>
                     <h2 className="text-2xl font-bold mb-6">Seat Booking</h2>
 
-                    <button 
-                        onClick={() => { localStorage.removeItem('jwtToken'); localStorage.removeItem('userId'); router.replace('/login') }} 
-                        className='rounded-md bg-blue-950 text-white p-2 h-[40px] text-md font-semibold'
-                    >
-                        Logout
-                    </button>
+                    <div className='flex justify-between gap-2'>
+                        <button 
+                            onClick={() => { localStorage.removeItem('jwtToken'); localStorage.removeItem('userId'); router.replace('/login') }} 
+                            className='rounded-md bg-blue-950 text-white p-2 h-[40px] text-md font-semibold'
+                        >
+                            Logout
+                        </button>
+
+                        <button
+                            onClick={handleBookingReset}
+                            className='rounded-md bg-blue-950 text-white p-2 h-[40px] text-md font-semibold'
+                        >
+                            Reset
+                        </button>
+                    </div>
                 </div>
                 <SeatPicker seats={seats} highlightedSeats={highlightedSeats} />
             </div>
@@ -149,7 +177,6 @@ const Dashboard = () => {
                             Book Seats
                         </button>
                     </div>
-
                 </div>
             </div>
         </>
