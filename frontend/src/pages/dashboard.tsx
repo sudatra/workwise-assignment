@@ -138,7 +138,7 @@ const Dashboard = () => {
             <ToastContainer position="top-right" autoClose={3000} />
             <div className="p-4">
                 <div className='flex flex-1 justify-between'>
-                    <h2 className="text-2xl font-bold mb-6">Seat Booking</h2>
+                    <h2 className="text-2xl font-bold mb-6">Seat Bookings</h2>
 
                     <div className='flex justify-between gap-2'>
                         <button 
