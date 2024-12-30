@@ -19,7 +19,7 @@ const Signup = () => {
   
     const handleSignup = async () => {
       try {
-        const response = await axios.post('http://localhost:3001/users/signup', {
+        const response = await axios.post('https://workwise-assignment-backend-production.up.railway.app/users/signup', {
           username,
           password,
         });

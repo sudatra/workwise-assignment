@@ -30,7 +30,7 @@ const Dashboard = () => {
   
   const fetchSeats = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/trains/seats');
+      const response = await axios.get('https://workwise-assignment-backend-production.up.railway.app/seats');
       setSeats(response.data);
     } catch (error) {
       console.error('Error fetching seats:', error);
@@ -89,7 +89,7 @@ const Dashboard = () => {
 
   const handleSeatBooking = async () => {
     try {
-        const response = await axios.post('http://localhost:3001/trains/book', {
+        const response = await axios.post('https://workwise-assignment-backend-production.up.railway.app/trains/book', {
             userId: userId,
             numberOfSeats: seatCount
         });
@@ -115,7 +115,7 @@ const Dashboard = () => {
 
   const handleBookingReset = async () => {
     try {
-        const response = await axios.post('http://localhost:3001/trains/reset');
+        const response = await axios.post('https://workwise-assignment-backend-production.up.railway.app/trains/reset');
 
         toast.success("Successfully reset booking", {
             position: "top-center",
