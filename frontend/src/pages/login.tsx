@@ -72,7 +72,7 @@ const Login = () => {
                         </button>
 
                         <div className='flex gap-1 justify-center mt-2'>
-                            <p className='font-semibold'>Don't have an account?</p>
+                            <p className='font-semibold'>Do not have an account?</p>
                             <Link href='/signup' className='font-semibold text-violet-800'>Signup</Link>
                         </div>
                     </div>
