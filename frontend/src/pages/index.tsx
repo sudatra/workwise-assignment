@@ -1,19 +1,19 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ToastContainer } from "react-toastify";
+// import Image from "next/image";
+// import { Geist, Geist_Mono } from "next/font/google";
+// import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export default function Home() {
   const [token, setToken] = useState<string | null>(null);

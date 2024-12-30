@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    // const [error, setError] = useState('');
     const [token, setToken] = useState<string | null>(null);
     const router = useRouter();
 
@@ -35,7 +35,7 @@ const Signup = () => {
             hideProgressBar: false,
         })
       } catch (error) {
-        setError('Error during signup');
+        // setError('Error during signup');
         toast.error('Error in signing up', {
             position: "top-center",
             hideProgressBar: false
