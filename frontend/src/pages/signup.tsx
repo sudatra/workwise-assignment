@@ -34,6 +34,7 @@ const Signup = () => {
             hideProgressBar: false,
         })
       } catch (error) {
+        console.error("Error in signup: ", error)
         toast.error('Error in signing up', {
             position: "top-center",
             hideProgressBar: false

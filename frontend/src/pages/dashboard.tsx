@@ -102,6 +102,7 @@ const Dashboard = () => {
         console.log('Booking Successfully created:', response.data);
     }
     catch(error) {
+        console.error("Error booking: ", error)
         toast.error("Error Booking seats", {
             position: "top-center",
             hideProgressBar: false
@@ -123,6 +124,7 @@ const Dashboard = () => {
         console.log('Bookings Successfully reset:', response.data)
     }
     catch(error) {
+        console.error("Error resetting: ", error)
         toast.error("Error Resetting seats", {
             position: "top-center",
             hideProgressBar: false

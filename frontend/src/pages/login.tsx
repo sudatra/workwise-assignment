@@ -34,6 +34,7 @@ const Login = () => {
             hideProgressBar: false,
         })
       } catch (error) {
+        console.error("Error in login: ", error)
         toast.error('Unable to login', {
             position: "top-center",
             hideProgressBar: false
