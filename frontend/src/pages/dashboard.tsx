@@ -30,7 +30,7 @@ const Dashboard = () => {
   
   const fetchSeats = async () => {
     try {
-      const response = await axios.get('https://workwise-assignment-backend-production.up.railway.app/seats');
+      const response = await axios.get('https://workwise-assignment-backend-production.up.railway.app/trains/seats');
       setSeats(response.data);
     } catch (error) {
       console.error('Error fetching seats:', error);
