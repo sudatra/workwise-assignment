@@ -8,10 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [seats, setSeats] = useState<any[]>([]);
   const [seatCount, setSeatCount] = useState<number>(0);
   const [userId, setUserId] = useState<number | null>(null);
-  const [error, setError] = useState('');
   const [token, setToken] = useState<string | null>(null);
   const [highlightedSeats, setHighlightedSeats] = useState<number[]>([]);
   const [showPreview, setShowPreview] = useState<boolean>(false);
@@ -41,7 +41,9 @@ const Dashboard = () => {
     fetchSeats();
   }, [showPreview, fetchingSeats]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const findBestSeats = (availableSeats: any[], numberOfSeats: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const rows: any[] = availableSeats.reduce((acc: any, seat: any) => {
       if(!acc[seat.rowNumber]) {
         acc[seat.rowNumber] = [];
@@ -53,17 +55,18 @@ const Dashboard = () => {
 
     for (const row of Object.values(rows)) {
       if (row.length >= numberOfSeats) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return row.slice(0, numberOfSeats).map((seat: any) => seat.id);
       }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return availableSeats.slice(0, numberOfSeats).map((seat: any) => seat.id);
   };
 
   const handlePreviewSeats = () => {
     const availableSeats = seats.filter((seat) => !seat.isReserved);
     if(seatCount < 1 || seatCount > 7) {
-      setError('You can only book between 1 and 7 seats.');
       toast.error("You can only book between 1 and 7 seats.", {
         position: "top-center",
         hideProgressBar: false
@@ -72,7 +75,6 @@ const Dashboard = () => {
       return;
     }
     if (availableSeats.length < seatCount) {
-      setError('Not enough seats available.');
       return;
     }
     const bestSeats = findBestSeats(availableSeats, seatCount);
@@ -83,7 +85,6 @@ const Dashboard = () => {
         position: "top-center",
         hideProgressBar: false
     });
-    setError('');
   };
 
   const handleSeatBooking = async () => {
@@ -101,7 +102,6 @@ const Dashboard = () => {
         console.log('Booking Successfully created:', response.data);
     }
     catch(error) {
-        setError('Error during seat booking');
         toast.error("Error Booking seats", {
             position: "top-center",
             hideProgressBar: false
@@ -123,7 +123,6 @@ const Dashboard = () => {
         console.log('Bookings Successfully reset:', response.data)
     }
     catch(error) {
-        setError('Error resetting seats');
         toast.error("Error Resetting seats", {
             position: "top-center",
             hideProgressBar: false

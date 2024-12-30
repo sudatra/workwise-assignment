@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // const [error, setError] = useState('');
     const [token, setToken] = useState<string | null>(null);
     const router = useRouter();
   
@@ -35,7 +34,6 @@ const Login = () => {
             hideProgressBar: false,
         })
       } catch (error) {
-        // setError('Invalid credentials');
         toast.error('Unable to login', {
             position: "top-center",
             hideProgressBar: false

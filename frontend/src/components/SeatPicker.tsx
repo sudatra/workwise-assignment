@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SeatPicker = ({ seats, highlightedSeats }: { seats: any[]; highlightedSeats: number[] }) => {
   return (
     <div className="grid grid-cols-7 gap-4">
